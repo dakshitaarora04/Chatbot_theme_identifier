@@ -2,6 +2,10 @@ from sentence_transformers import SentenceTransformer
 import numpy as np
 import faiss
 
+#To Convert the user question into a vector.
+#Searches for the top_k most similar chunks (based on vector distance).
+#Returns the best-matching document chunks as potential answers.
+
 class QASystem:
     def __init__(self):
         self.model = SentenceTransformer('all-MiniLM-L6-v2')
