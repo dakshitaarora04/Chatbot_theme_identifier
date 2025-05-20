@@ -1,6 +1,5 @@
 import streamlit as st
 from core import text_utils
-from models import embedding_model
 from services import theme_service
 
 st.set_page_config(page_title="Document Theme Identifier", page_icon="📄")
@@ -36,7 +35,8 @@ if chunks:
     if st.button("Identify Themes Across Documents"):
         themes, _ = theme_service.identify_themes(chunks)
         st.markdown("### Identified Themes:")
-       for idx, theme_chunks in enumerate(themes):
-    st.markdown(f"### Theme {idx + 1}")
-    for chunk in theme_chunks:
-        st.write("- " + chunk)
+        for idx, theme_chunks in enumerate(themes):
+            st.markdown(f"### Theme {idx + 1}")
+            for chunk in theme_chunks:
+                st.write("- " + chunk)
+
