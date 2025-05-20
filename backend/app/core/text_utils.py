@@ -4,6 +4,9 @@ import pytesseract
 import re
 import io
 
+#To extract the text from the document
+#clean the text 
+#to convert the document into small chunks
 def extract_text_from_pdf(pdf_bytes):
     doc = fitz.open(stream=pdf_bytes, filetype="pdf")
     text = ""
