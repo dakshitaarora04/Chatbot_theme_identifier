@@ -1,0 +1,26 @@
+# Byte-compiled / cache files
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Virtual environment
+.venv/
+env/
+venv/
+
+# Streamlit
+.streamlit/
+
+# OS-specific
+.DS_Store
+
+# Logs and temp files
+*.log
+*.tmp
+
+# Environment config
+.env
+
+# Data
+backend/data/*
+!backend/data/.gitkeep

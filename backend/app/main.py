@@ -1,0 +1,40 @@
+import streamlit as st
+from core import text_utils
+from models import embedding_model
+from services import theme_service
+
+st.set_page_config(page_title="Document Theme Identifier", page_icon="📄")
+
+st.title("Document Research & Theme Identification Chatbot")
+
+uploaded_files = st.file_uploader(
+    "Upload PDF or scanned image files (png, jpg, jpeg)",
+    type=['pdf', 'png', 'jpg', 'jpeg'],
+    accept_multiple_files=True
+)
+
+all_texts = []
+if uploaded_files:
+    st.info(f"Extracting text from {len(uploaded_files)} files...")
+    for file in uploaded_files:
+        file_bytes = file.read()
+        if file.type == "application/pdf":
+            text = text_utils.extract_text_from_pdf(file_bytes)
+        else:
+            text = text_utils.extract_text_from_image(file_bytes)
+        cleaned = text_utils.clean_text(text)
+        all_texts.append(cleaned)
+    st.success("Text extraction complete!")
+
+chunks = []
+if all_texts:
+    for text in all_texts:
+        chunks.extend(text_utils.chunk_text(text))
+    st.write(f"Total chunks created: {len(chunks)}")
+
+if chunks:
+    if st.button("Identify Themes Across Documents"):
+        themes, _ = theme_service.identify_themes(chunks)
+        st.markdown("### Identified Themes:")
+        for idx, keywords in themes:
+            st.markdown(f"**Theme {idx}:** {', '.join(keywords)}")
