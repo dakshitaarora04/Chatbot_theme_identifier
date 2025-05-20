@@ -5,3 +5,5 @@ pytesseract
 sentence-transformers
 scikit-learn
 torch
+faiss-cpu
+PyPDF2
