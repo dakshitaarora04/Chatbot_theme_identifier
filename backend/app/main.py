@@ -36,5 +36,7 @@ if chunks:
     if st.button("Identify Themes Across Documents"):
         themes, _ = theme_service.identify_themes(chunks)
         st.markdown("### Identified Themes:")
-        for idx, keywords in themes:
-            st.markdown(f"**Theme {idx}:** {', '.join(keywords)}")
+       for idx, theme_chunks in enumerate(themes):
+    st.markdown(f"### Theme {idx + 1}")
+    for chunk in theme_chunks:
+        st.write("- " + chunk)
