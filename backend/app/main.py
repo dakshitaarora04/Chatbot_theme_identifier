@@ -1,6 +1,7 @@
 import streamlit as st
 from core import text_utils
 from services import theme_service
+from services.qa_service import QASystem  # Import QA system
 
 st.set_page_config(page_title="Document Theme Identifier", page_icon="📄")
 
@@ -39,4 +40,20 @@ if chunks:
             st.markdown(f"### Theme {idx + 1}")
             for chunk in theme_chunks:
                 st.write("- " + chunk)
+
+    # === Q&A FEATURE START ===
+    qa_system = QASystem()
+    qa_system.build_index(chunks)
+
+    question = st.text_input("Ask a question about the uploaded documents:")
+    if question:
+        answers = qa_system.query(question)
+        if answers:
+            st.markdown("### Answers:")
+            for ans in answers:
+                st.write("- " + ans)
+        else:
+            st.write("No relevant answers found.")
+    # === Q&A FEATURE END ===
+
 
